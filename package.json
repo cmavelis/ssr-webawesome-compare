@@ -1,0 +1,35 @@
+{
+  "name": "ssr-wa-compare",
+  "version": "1.0.0",
+  "description": "Testing WebAwesome component library with Svelte/SvelteKit SSR and reactivity",
+  "private": true,
+  "workspaces": [
+    "pocs/*"
+  ],
+  "scripts": {
+    "dev:01": "npm run dev --workspace=01-cdn-basic",
+    "dev:02": "npm run dev --workspace=02-bundled-basic",
+    "dev:03": "npm run dev --workspace=03-plain-svelte",
+    "dev:04": "npm run dev --workspace=04-sveltekit-csr",
+    "dev:05": "npm run dev --workspace=05-sveltekit-ssr",
+    "dev:06": "npm run dev --workspace=06-fouce-test",
+    "dev:07": "npm run dev --workspace=07-bundled-no-fouce",
+    "dev:all": "concurrently --names \"POC1,POC2,POC3,POC4,POC5,POC6,POC7\" -c \"cyan,magenta,green,yellow,blue,red,white\" \"npm run dev:01\" \"npm run dev:02\" \"npm run dev:03\" \"npm run dev:04\" \"npm run dev:05\" \"npm run dev:06\" \"npm run dev:07\"",
+    "open:all": "open-cli http://localhost:5001 http://localhost:5002 http://localhost:5003 http://localhost:5004 http://localhost:5005 http://localhost:5006 http://localhost:5007",
+    "start": "npm run dev:all"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "open-cli": "^8.0.0"
+  },
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "webawesome",
+    "ssr",
+    "custom-elements",
+    "web-components"
+  ],
+  "author": "",
+  "license": "MIT"
+}
