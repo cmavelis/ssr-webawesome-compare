@@ -1,34 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
-	// Import WebAwesome styles
-	import '@awesome.me/webawesome/dist/styles/webawesome.css';
-
-	// Import WebAwesome components (cherry-picked)
-	import '@awesome.me/webawesome/dist/components/select/select.js';
-	import '@awesome.me/webawesome/dist/components/option/option.js';
+	// Component imports and FOUCE prevention are handled in +layout.svelte
+	// This keeps pages clean and DRY
 
 	// BUG TEST: isDisabled = false, but element may be disabled on first load
 	let isDisabled = $state(false);
-	let elementsReady = $state(false);
-
-	onMount(async () => {
-		// FOUCE Prevention: Wait for custom elements to be defined
-		// Use Promise.race to timeout after 2 seconds if elements don't load
-		await Promise.race([
-			// Wait for all custom elements we're using
-			Promise.allSettled([
-				customElements.whenDefined('wa-select'),
-				customElements.whenDefined('wa-option')
-			]),
-			// Timeout after 2 seconds
-			new Promise(resolve => setTimeout(resolve, 2000))
-		]);
-
-		// Mark elements as ready and show the page
-		elementsReady = true;
-		document.body.classList.add('ready');
-	});
 
 	function toggleDisabled() {
 		isDisabled = !isDisabled;
@@ -36,13 +11,12 @@
 </script>
 
 <main style="padding: 2rem; max-width: 600px; margin: 0 auto;">
-	<h1>POC 7: Bundled + No FOUCE</h1>
-	<p><strong>Test:</strong> wa-select with bundled npm approach and FOUCE prevention</p>
+	<h1>POC 7: Bundled + No FOUCE (Root Layout)</h1>
+	<p><strong>Test:</strong> wa-select with bundled npm approach and FOUCE prevention via root layout</p>
 
 	<div style="margin: 2rem 0; padding: 1rem; background: #f0f8ff; border: 2px solid #4a90e2; border-radius: 4px;">
 		<p><strong>Current State:</strong></p>
 		<p>isDisabled = <code>{isDisabled}</code></p>
-		<p>Elements Ready = <code>{elementsReady}</code></p>
 		<p>Expected: Select should be {isDisabled ? 'disabled' : 'enabled'}</p>
 	</div>
 
@@ -60,7 +34,18 @@
 	</button>
 
 	<div style="margin-top: 3rem; padding: 1rem; background: #e8f5e9; border-radius: 4px;">
-		<h3>FOUCE Prevention Techniques:</h3>
+		<h3>Architecture: Root Layout Pattern</h3>
+		<p>All WebAwesome component imports and FOUCE prevention logic are centralized in <code>+layout.svelte</code>:</p>
+		<ul>
+			<li><strong>✅ Single source of truth</strong> for component loading</li>
+			<li><strong>✅ All pages automatically protected</strong> from FOUCE</li>
+			<li><strong>✅ Easy to add new components</strong> - just update layout</li>
+			<li><strong>✅ Clean page components</strong> - no duplicate imports</li>
+		</ul>
+	</div>
+
+	<div style="margin-top: 2rem; padding: 1rem; background: #fff3cd; border-radius: 4px;">
+		<h3>FOUCE Prevention Techniques (in +layout.svelte):</h3>
 		<ul>
 			<li><strong>CSS:</strong> Body hidden with <code>opacity: 0</code> until ready</li>
 			<li><strong>JS:</strong> <code>customElements.whenDefined()</code> waits for all custom elements</li>
@@ -69,7 +54,7 @@
 		</ul>
 	</div>
 
-	<div style="margin-top: 2rem; padding: 1rem; background: #fff3cd; border-radius: 4px;">
+	<div style="margin-top: 2rem; padding: 1rem; background: #d1ecf1; border-radius: 4px;">
 		<h3>Test Instructions:</h3>
 		<ol>
 			<li>Watch for page to fade in smoothly (no flash!)</li>
@@ -78,7 +63,7 @@
 			<li>Click toggle button to test reactivity</li>
 			<li>Hard refresh (Cmd+Shift+R) to test again</li>
 		</ol>
-		<p><strong>Success Criteria:</strong> No FOUCE + Disabled property works correctly</p>
+		<p><strong>Success Criteria:</strong> No FOUCE + Disabled property works correctly + Scalable architecture</p>
 	</div>
 </main>
 
