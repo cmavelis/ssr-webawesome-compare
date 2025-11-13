@@ -14,8 +14,9 @@
     "dev:05": "npm run dev --workspace=05-sveltekit-ssr",
     "dev:06": "npm run dev --workspace=06-fouce-test",
     "dev:07": "npm run dev --workspace=07-bundled-no-fouce",
-    "dev:all": "concurrently --names \"POC1,POC2,POC3,POC4,POC5,POC6,POC7\" -c \"cyan,magenta,green,yellow,blue,red,white\" \"npm run dev:01\" \"npm run dev:02\" \"npm run dev:03\" \"npm run dev:04\" \"npm run dev:05\" \"npm run dev:06\" \"npm run dev:07\"",
-    "open:all": "open-cli http://localhost:5001 http://localhost:5002 http://localhost:5003 http://localhost:5004 http://localhost:5005 http://localhost:5006 http://localhost:5007",
+    "dev:08": "npm run dev --workspace=08-per-page-utility",
+    "dev:all": "concurrently --names \"POC1,POC2,POC3,POC4,POC5,POC6,POC7,POC8\" -c \"cyan,magenta,green,yellow,blue,red,white,gray\" \"npm run dev:01\" \"npm run dev:02\" \"npm run dev:03\" \"npm run dev:04\" \"npm run dev:05\" \"npm run dev:06\" \"npm run dev:07\" \"npm run dev:08\"",
+    "open:all": "open-cli http://localhost:5001 http://localhost:5002 http://localhost:5003 http://localhost:5004 http://localhost:5005 http://localhost:5006 http://localhost:5007 http://localhost:5008",
     "start": "npm run dev:all"
   },
   "devDependencies": {
